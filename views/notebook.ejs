@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook - <%= id %></title>
+</head>
+<body>
+    <h1>Notebook - <%= id %></h1>
+    <textarea id="textarea" style="width: 100%;height:80vh;font-size:25px;"></textarea>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const notebook_id = "<%= id %>"
+    let textarea = document.querySelector("textarea")
+    let content = "<%= content %>"
+    textarea.value = content
+
+    const socket = io()
+    console.log(socket)
+    socket.emit("user:new",{notebook_id})
+
+    textarea.addEventListener("change",(e)=>{
+        socket.emit("notebook:update",{new_content:textarea.value,notebook_id})
+    })
+
+    socket.on("notebook:content",(data)=>{
+        textarea.value = data.content
+    })
+
+    window.addEventListener("unload",(e)=>{
+        socket.emit("user:close",{notebook_id})
+    })
+
+</script>
+</html>

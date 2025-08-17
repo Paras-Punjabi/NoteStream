@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeShare</title>
+</head>
+<body>
+    <h1>CodeShare</h1>
+    <button id="btn">Create Notebook</button>
+</body>
+<script>
+    const btn = document.getElementById("btn")
+    btn.addEventListener("click",async(e)=>{
+        let resp = await fetch("/api/create");
+        resp = await resp.json() 
+        if(resp.success){
+            window.location.href = "/notebook/"+resp.data
+        }
+        else{
+            console.log(resp)
+            alert(resp.message)
+        }
+    });
+</script>
+</html>
