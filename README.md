@@ -33,6 +33,7 @@ Built for speed, simplicity, and scalability.
 3. Start the Services
    ```bash
    docker-compose -f start-services.yml up --build -d
+   Goto http://localhost:8000
    ```
 
 4. Stop the Services
